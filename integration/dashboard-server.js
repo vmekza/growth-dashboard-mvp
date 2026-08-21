@@ -153,6 +153,8 @@ const server = http.createServer(async (req, res) => {
 });
 
 // Start dashboard API
-server.listen(3004, () => {
-  console.log('Dashboard API running on http://localhost:3004');
+const PORT = process.env.PORT || 3004;
+
+server.listen(PORT, '0.0.0.0', () => {
+  console.log(`Dashboard API running on port ${PORT}`);
 });
