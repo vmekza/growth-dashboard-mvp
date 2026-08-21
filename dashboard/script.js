@@ -1,5 +1,7 @@
 async function loadMetrics() {
-  const response = await fetch('http://localhost:3004/metrics');
+  const response = await fetch(
+    'https://growth-dashboard-api-h4il.onrender.com/metrics',
+  );
   const metrics = await response.json();
 
   document.getElementById('total-customers').textContent =
