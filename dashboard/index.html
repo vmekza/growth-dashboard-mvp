@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Growth Dashboard</title>
+
+    <link rel="stylesheet" href="styles.css?v=3" />
+  </head>
+
+  <body>
+    <div class="dashboard-shell">
+      <header class="dashboard-header">
+        <div>
+          <p class="eyebrow">Commercial Data Integration MVP</p>
+
+          <h1>Growth Dashboard</h1>
+
+          <p class="subtitle">
+            A unified commercial view across CRM, e-commerce and chatbot data.
+          </p>
+        </div>
+
+        <div class="status-badge">
+          <span class="status-dot"></span>
+          <span id="last-refreshed">Last refreshed —</span>
+        </div>
+      </header>
+
+      <main>
+        <section class="hero-grid">
+          <article class="hero-card revenue-card">
+            <div class="card-top">
+              <span class="card-label">Total Revenue</span>
+              <span class="small-badge">Paid orders</span>
+            </div>
+
+            <p class="hero-value" id="total-revenue">Loading...</p>
+
+            <p class="card-description">
+              Revenue generated from paid e-commerce orders.
+            </p>
+          </article>
+
+          <article class="hero-card won-card">
+            <div class="card-top">
+              <span class="card-label">Won CRM Value</span>
+              <span class="small-badge success">Won</span>
+            </div>
+
+            <p class="hero-value" id="won-crm-deal-value">Loading...</p>
+
+            <p class="card-description">
+              Total value of successfully closed CRM deals.
+            </p>
+          </article>
+
+          <article class="compact-card">
+            <p class="card-label">Customers</p>
+
+            <p class="compact-value" id="total-customers">Loading...</p>
+
+            <p class="card-description">Unified customer records</p>
+          </article>
+
+          <article class="compact-card">
+            <p class="card-label">Orders</p>
+
+            <p class="compact-value" id="total-orders">Loading...</p>
+
+            <p class="card-description">Imported e-commerce orders</p>
+          </article>
+        </section>
+
+        <section class="content-grid">
+          <article class="panel">
+            <div class="panel-header">
+              <div>
+                <p class="section-kicker">Performance</p>
+                <h2>Commercial Metrics</h2>
+              </div>
+            </div>
+
+            <div class="metrics-list">
+              <div class="metric-row">
+                <div>
+                  <p class="metric-name">Average order value</p>
+                  <p class="metric-helper">Average paid purchase</p>
+                </div>
+
+                <strong id="average-order-value">Loading...</strong>
+              </div>
+
+              <div class="metric-row">
+                <div>
+                  <p class="metric-name">Total CRM deals</p>
+                  <p class="metric-helper">Deals imported from CRM</p>
+                </div>
+
+                <strong id="total-crm-deals">Loading...</strong>
+              </div>
+
+              <div class="metric-row">
+                <div>
+                  <p class="metric-name">Chatbot leads</p>
+                  <p class="metric-helper">Lead creation events</p>
+                </div>
+
+                <strong id="chatbot-leads">Loading...</strong>
+              </div>
+
+              <div class="metric-row">
+                <div>
+                  <p class="metric-name">Open CRM value</p>
+                  <p class="metric-helper">Potential pipeline value</p>
+                </div>
+
+                <strong id="open-crm-deal-value">Loading...</strong>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-header">
+              <div>
+                <p class="section-kicker">Data Pipeline</p>
+                <h2>Connected Sources</h2>
+              </div>
+            </div>
+
+            <div class="source-list">
+              <div class="source-row">
+                <div class="source-mark">CRM</div>
+
+                <div class="source-info">
+                  <strong>CRM System</strong>
+                  <span>Contacts and deals</span>
+                </div>
+
+                <span class="method-badge">API</span>
+              </div>
+
+              <div class="source-row">
+                <div class="source-mark">SHOP</div>
+
+                <div class="source-info">
+                  <strong>E-commerce</strong>
+                  <span>Customers and orders</span>
+                </div>
+
+                <span class="method-badge">API</span>
+              </div>
+
+              <div class="source-row">
+                <div class="source-mark">BOT</div>
+
+                <div class="source-info">
+                  <strong>Chatbot</strong>
+                  <span>Lead creation events</span>
+                </div>
+
+                <span class="method-badge webhook">Webhook</span>
+              </div>
+            </div>
+
+            <div class="database-row">
+              <div>
+                <span class="database-label">Unified storage</span>
+                <strong>Supabase Database</strong>
+              </div>
+
+              <span class="database-badge">DB</span>
+            </div>
+          </article>
+        </section>
+      </main>
+    </div>
+
+    <script src="script.js?v=5"></script>
+  </body>
+</html>

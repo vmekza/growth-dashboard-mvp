@@ -1,0 +1,28 @@
+{
+  "contacts": [
+    {
+      "id": "crm_001",
+      "name": "Anna Virtanen",
+      "email": "anna@example.com"
+    },
+    {
+      "id": "crm_002",
+      "name": "Mika Korhonen",
+      "email": "mika@example.com"
+    }
+  ],
+"deals": [
+  {
+    "id": "deal_001",
+    "contact_id": "crm_001",
+    "value": 500,
+    "status": "won"
+  },
+  {
+    "id": "deal_002",
+    "contact_id": "crm_002",
+    "value": 300,
+    "status": "open"
+  }
+]
+}

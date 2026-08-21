@@ -1,0 +1,34 @@
+{
+  "customers": [
+    {
+      "id": "shop_101",
+      "name": "Anna Virtanen",
+      "email": "anna@example.com"
+    },
+    {
+      "id": "shop_102",
+      "name": "Mika Korhonen",
+      "email": "mika@example.com"
+    }
+  ],
+  "orders": [
+    {
+      "id": "order_001",
+      "customer_id": "shop_101",
+      "total": 249,
+      "status": "paid"
+    },
+    {
+      "id": "order_002",
+      "customer_id": "shop_102",
+      "total": 129,
+      "status": "paid"
+    },
+{
+  "id": "order_003",
+  "customer_id": "shop_101",
+  "total": 79,
+  "status": "paid"
+}
+  ]
+}
