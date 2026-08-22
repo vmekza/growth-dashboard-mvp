@@ -38,3 +38,37 @@ async function loadMetrics() {
 loadMetrics();
 
 setInterval(loadMetrics, 30000);
+
+const createOrderButton = document.getElementById('create-order-button');
+const demoMessage = document.getElementById('demo-message');
+
+createOrderButton.addEventListener('click', async () => {
+  createOrderButton.disabled = true;
+  createOrderButton.textContent = 'Creating...';
+  demoMessage.textContent = '';
+
+  try {
+    const response = await fetch(
+      'https://growth-dashboard-api-h4il.onrender.com/demo/order',
+      {
+        method: 'POST',
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error('Could not create demo order');
+    }
+
+    const result = await response.json();
+
+    demoMessage.textContent = `New €${result.order.total} order created for ${result.customer}`;
+
+    await loadMetrics();
+  } catch (error) {
+    console.error('Demo action error:', error);
+    demoMessage.textContent = 'Could not create demo order.';
+  } finally {
+    createOrderButton.disabled = false;
+    createOrderButton.textContent = 'Create Demo Order';
+  }
+});
