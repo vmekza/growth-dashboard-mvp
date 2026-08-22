@@ -29,7 +29,6 @@ const server = http.createServer(async (req, res) => {
   }
 
   // POST order
-
   if (req.method === 'POST' && req.url === '/demo/order') {
     try {
       // Find one existing customer for the demo order
@@ -86,6 +85,76 @@ const server = http.createServer(async (req, res) => {
       return;
     }
   }
+  // POST deals and leads
+  if (req.method === 'POST' && req.url === '/demo/deal') {
+    try {
+      const { data: customer, error: customerError } = await supabase
+        .from('customers')
+        .select('id, name')
+        .order('id', { ascending: true })
+        .limit(1)
+        .single();
+
+      if (customerError) throw customerError;
+
+      const { data: deal, error: dealError } = await supabase
+        .from('deals')
+        .insert({
+          crm_deal_id: `demo_deal_${Date.now()}`,
+          customer_id: customer.id,
+          value: 250,
+          status: 'open',
+        })
+        .select()
+        .single();
+
+      if (dealError) throw dealError;
+
+      res.statusCode = 201;
+      res.end(JSON.stringify({ success: true, customer: customer.name, deal }));
+      return;
+    } catch (error) {
+      res.statusCode = 500;
+      res.end(JSON.stringify({ error: 'Could not create demo deal' }));
+      return;
+    }
+  }
+
+  if (req.method === 'POST' && req.url === '/demo/lead') {
+    try {
+      const { data: customer, error: customerError } = await supabase
+        .from('customers')
+        .select('id, name')
+        .order('id', { ascending: true })
+        .limit(1)
+        .single();
+
+      if (customerError) throw customerError;
+
+      const { data: event, error: eventError } = await supabase
+        .from('chatbot_events')
+        .insert({
+          conversation_id: `demo_chat_${Date.now()}`,
+          customer_id: customer.id,
+          event: 'lead_created',
+        })
+        .select()
+        .single();
+
+      if (eventError) throw eventError;
+
+      res.statusCode = 201;
+      res.end(
+        JSON.stringify({ success: true, customer: customer.name, event }),
+      );
+      return;
+    } catch (error) {
+      res.statusCode = 500;
+      res.end(JSON.stringify({ error: 'Could not create demo lead' }));
+      return;
+    }
+  }
+
   // GET metrics
   if (req.method === 'GET' && req.url === '/metrics') {
     try {
