@@ -72,3 +72,50 @@ createOrderButton.addEventListener('click', async () => {
     createOrderButton.textContent = 'Create Demo Order';
   }
 });
+
+const createDealButton = document.getElementById('create-deal-button');
+const createLeadButton = document.getElementById('create-lead-button');
+
+createDealButton.addEventListener('click', async () => {
+  createDealButton.disabled = true;
+  createDealButton.textContent = 'Creating...';
+
+  try {
+    const response = await fetch(
+      'https://growth-dashboard-api-h4il.onrender.com/demo/deal',
+      { method: 'POST' },
+    );
+
+    if (!response.ok) throw new Error();
+
+    demoMessage.textContent = 'New €250 CRM deal created';
+    await loadMetrics();
+  } catch {
+    demoMessage.textContent = 'Could not create CRM deal.';
+  } finally {
+    createDealButton.disabled = false;
+    createDealButton.textContent = 'Create CRM Deal';
+  }
+});
+
+createLeadButton.addEventListener('click', async () => {
+  createLeadButton.disabled = true;
+  createLeadButton.textContent = 'Sending...';
+
+  try {
+    const response = await fetch(
+      'https://growth-dashboard-api-h4il.onrender.com/demo/lead',
+      { method: 'POST' },
+    );
+
+    if (!response.ok) throw new Error();
+
+    demoMessage.textContent = 'New chatbot lead created';
+    await loadMetrics();
+  } catch {
+    demoMessage.textContent = 'Could not create chatbot lead.';
+  } finally {
+    createLeadButton.disabled = false;
+    createLeadButton.textContent = 'Send Chatbot Lead';
+  }
+});

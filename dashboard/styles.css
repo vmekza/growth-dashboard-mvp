@@ -525,3 +525,8 @@ h1 {
   margin: 10px 0 0;
   font-size: 13px;
 }
+
+.demo-button-group {
+  display: grid;
+  gap: 10px;
+}
