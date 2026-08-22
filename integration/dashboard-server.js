@@ -19,6 +19,74 @@ const supabase = createClient(
 const server = http.createServer(async (req, res) => {
   res.setHeader('Content-Type', 'application/json');
   res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+
+  if (req.method === 'OPTIONS') {
+    res.statusCode = 204;
+    res.end();
+    return;
+  }
+
+  // POST order
+
+  if (req.method === 'POST' && req.url === '/demo/order') {
+    try {
+      // Find one existing customer for the demo order
+      const { data: customer, error: customerError } = await supabase
+        .from('customers')
+        .select('id, name')
+        .order('id', { ascending: true })
+        .limit(1)
+        .single();
+
+      if (customerError) {
+        throw customerError;
+      }
+
+      // Create a unique simulated shop order
+      const demoOrderId = `demo_order_${Date.now()}`;
+
+      const { data: order, error: orderError } = await supabase
+        .from('orders')
+        .insert({
+          shop_order_id: demoOrderId,
+          customer_id: customer.id,
+          total: 99,
+          status: 'paid',
+        })
+        .select()
+        .single();
+
+      if (orderError) {
+        throw orderError;
+      }
+
+      res.statusCode = 201;
+      res.end(
+        JSON.stringify({
+          success: true,
+          message: 'Demo e-commerce order created',
+          customer: customer.name,
+          order,
+        }),
+      );
+
+      return;
+    } catch (error) {
+      console.error('Demo order error:', error);
+
+      res.statusCode = 500;
+      res.end(
+        JSON.stringify({
+          error: 'Could not create demo order',
+        }),
+      );
+
+      return;
+    }
+  }
+  // GET metrics
   if (req.method === 'GET' && req.url === '/metrics') {
     try {
       // Count all customers
