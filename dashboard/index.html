@@ -6,7 +6,7 @@
 
     <title>Growth Dashboard</title>
 
-    <link rel="stylesheet" href="styles.css?v=3" />
+    <link rel="stylesheet" href="styles.css?v=5" />
   </head>
 
   <body>
@@ -29,6 +29,35 @@
       </header>
 
       <main>
+        <div class="demo-actions">
+          <div class="demo-actions-header">
+            <p class="section-kicker">Interactive Demo</p>
+            <h3>Simulate Source Activity</h3>
+          </div>
+
+          <div class="demo-button-group">
+            <div class="demo-action">
+              <button id="create-order-button" class="demo-button">
+                Create Demo Order
+              </button>
+              <p id="order-message" class="demo-message"></p>
+            </div>
+
+            <div class="demo-action">
+              <button id="create-deal-button" class="demo-button">
+                Create CRM Deal
+              </button>
+              <p id="deal-message" class="demo-message"></p>
+            </div>
+
+            <div class="demo-action">
+              <button id="create-lead-button" class="demo-button">
+                Send Chatbot Lead
+              </button>
+              <p id="lead-message" class="demo-message"></p>
+            </div>
+          </div>
+        </div>
         <section class="hero-grid">
           <article class="hero-card revenue-card">
             <div class="card-top">
@@ -172,33 +201,11 @@
 
               <span class="database-badge">DB</span>
             </div>
-            <div class="demo-actions">
-              <div class="demo-actions-header">
-                <p class="section-kicker">Interactive Demo</p>
-                <h3>Simulate Source Activity</h3>
-              </div>
-
-              <div class="demo-button-group">
-                <button id="create-order-button" class="demo-button">
-                  Create Demo Order
-                </button>
-
-                <button id="create-deal-button" class="demo-button">
-                  Create CRM Deal
-                </button>
-
-                <button id="create-lead-button" class="demo-button">
-                  Send Chatbot Lead
-                </button>
-              </div>
-
-              <p id="demo-message" class="demo-message"></p>
-            </div>
           </article>
         </section>
       </main>
     </div>
 
-    <script src="script.js?v=7"></script>
+    <script src="script.js?v=12"></script>
   </body>
 </html>

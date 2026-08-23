@@ -522,11 +522,32 @@ h1 {
 
 .demo-message {
   min-height: 20px;
-  margin: 10px 0 0;
+  margin: 8px 0 0;
   font-size: 13px;
+  text-align: center;
+}
+.demo-button-group {
+  display: grid;
+  gap: 10px;
+}
+
+.demo-actions {
+  margin: 0 0 24px;
+  padding: 20px;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  background: #ffffff;
 }
 
 .demo-button-group {
   display: grid;
-  gap: 10px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 14px;
+}
+
+@media (max-width: 800px) {
+  .demo-button-group {
+    grid-template-columns: 1fr;
+  }
 }

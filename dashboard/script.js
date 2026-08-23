@@ -2,6 +2,7 @@ async function loadMetrics() {
   const response = await fetch(
     'https://growth-dashboard-api-h4il.onrender.com/metrics',
   );
+
   const metrics = await response.json();
 
   document.getElementById('total-customers').textContent =
@@ -35,17 +36,29 @@ async function loadMetrics() {
     })}`;
 }
 
+// Load metrics when the page opens
 loadMetrics();
 
+// Refresh metrics every 30 seconds
 setInterval(loadMetrics, 30000);
 
+// Demo controls
 const createOrderButton = document.getElementById('create-order-button');
-const demoMessage = document.getElementById('demo-message');
+const createDealButton = document.getElementById('create-deal-button');
+const createLeadButton = document.getElementById('create-lead-button');
 
+const orderMessage = document.getElementById('order-message');
+const dealMessage = document.getElementById('deal-message');
+const leadMessage = document.getElementById('lead-message');
+
+// Create demo e-commerce order
 createOrderButton.addEventListener('click', async () => {
   createOrderButton.disabled = true;
   createOrderButton.textContent = 'Creating...';
-  demoMessage.textContent = '';
+  orderMessage.textContent = '';
+
+  const oldOrders = document.getElementById('total-orders').textContent;
+  const oldRevenue = document.getElementById('total-revenue').textContent;
 
   try {
     const response = await fetch(
@@ -59,61 +72,91 @@ createOrderButton.addEventListener('click', async () => {
       throw new Error('Could not create demo order');
     }
 
-    const result = await response.json();
-
-    demoMessage.textContent = `New €${result.order.total} order created for ${result.customer}`;
-
     await loadMetrics();
+
+    const newOrders = document.getElementById('total-orders').textContent;
+    const newRevenue = document.getElementById('total-revenue').textContent;
+
+    orderMessage.textContent = `✓ Order created — Orders ${oldOrders} → ${newOrders} · Revenue ${oldRevenue} → ${newRevenue}`;
   } catch (error) {
-    console.error('Demo action error:', error);
-    demoMessage.textContent = 'Could not create demo order.';
+    console.error('Demo order error:', error);
+    orderMessage.textContent = 'Could not create demo order.';
   } finally {
     createOrderButton.disabled = false;
     createOrderButton.textContent = 'Create Demo Order';
   }
 });
 
-const createDealButton = document.getElementById('create-deal-button');
-const createLeadButton = document.getElementById('create-lead-button');
-
+// Create demo CRM deal
 createDealButton.addEventListener('click', async () => {
   createDealButton.disabled = true;
   createDealButton.textContent = 'Creating...';
+  dealMessage.textContent = '';
+
+  const oldDeals = document.getElementById('total-crm-deals').textContent;
+
+  const oldOpenValue = document.getElementById(
+    'open-crm-deal-value',
+  ).textContent;
 
   try {
     const response = await fetch(
       'https://growth-dashboard-api-h4il.onrender.com/demo/deal',
-      { method: 'POST' },
+      {
+        method: 'POST',
+      },
     );
 
-    if (!response.ok) throw new Error();
+    if (!response.ok) {
+      throw new Error('Could not create demo deal');
+    }
 
-    demoMessage.textContent = 'New €250 CRM deal created';
     await loadMetrics();
-  } catch {
-    demoMessage.textContent = 'Could not create CRM deal.';
+
+    const newDeals = document.getElementById('total-crm-deals').textContent;
+
+    const newOpenValue = document.getElementById(
+      'open-crm-deal-value',
+    ).textContent;
+
+    dealMessage.textContent = `✓ CRM deal created — Deals ${oldDeals} → ${newDeals} · Open value ${oldOpenValue} → ${newOpenValue}`;
+  } catch (error) {
+    console.error('Demo deal error:', error);
+    dealMessage.textContent = 'Could not create CRM deal.';
   } finally {
     createDealButton.disabled = false;
     createDealButton.textContent = 'Create CRM Deal';
   }
 });
 
+// Create demo chatbot lead
 createLeadButton.addEventListener('click', async () => {
   createLeadButton.disabled = true;
   createLeadButton.textContent = 'Sending...';
+  leadMessage.textContent = '';
+
+  const oldLeads = document.getElementById('chatbot-leads').textContent;
 
   try {
     const response = await fetch(
       'https://growth-dashboard-api-h4il.onrender.com/demo/lead',
-      { method: 'POST' },
+      {
+        method: 'POST',
+      },
     );
 
-    if (!response.ok) throw new Error();
+    if (!response.ok) {
+      throw new Error('Could not create chatbot lead');
+    }
 
-    demoMessage.textContent = 'New chatbot lead created';
     await loadMetrics();
-  } catch {
-    demoMessage.textContent = 'Could not create chatbot lead.';
+
+    const newLeads = document.getElementById('chatbot-leads').textContent;
+
+    leadMessage.textContent = `✓ Chatbot lead created — Leads ${oldLeads} → ${newLeads}`;
+  } catch (error) {
+    console.error('Demo lead error:', error);
+    leadMessage.textContent = 'Could not create chatbot lead.';
   } finally {
     createLeadButton.disabled = false;
     createLeadButton.textContent = 'Send Chatbot Lead';
